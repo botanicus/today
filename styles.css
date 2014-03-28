@@ -1,0 +1,10 @@
+li { list-style: none; }
+
+/* Tasks */
+.fixed-time { background-color: #FFCCCC; }
+.important-tasks { background-color: #FFE0C2; }
+.errands { background-color: #B2FFB2; }
+
+/* Habits */
+.active { background-color: #FFCCCC; }
+.finished { color: lightgray; }
