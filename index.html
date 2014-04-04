@@ -11,6 +11,7 @@
     <!-- Angular.js -->
     <script src="vendor/angular.js"></script>
     <script src="vendor/angular-route.js"></script>
+    <script src="vendor/angular-sanitize.js"></script>
     <script src="vendor/angular-resource.js"></script>
 
     <!-- Bootstrap -->
@@ -24,37 +25,53 @@
 
     <!-- The app -->
     <script src="app.js"></script>
+    <script src="data.js"></script>
     <link rel="stylesheet" href="styles.css">
   </head>
 
   <body>
-    <div class="col-md-5">
-      <h1>Today</h1>
-      <ul class="fixed-time" contenteditable>
-        <li><strong>5 PM</strong> Test Skype call. <em>#online</em></li>
+    <div class="col-md-5" ng-controller="TasksCtrl">
+      <h1>{{today | date:'EEEE M/d/yyyy'}}</h1>
+
+      <!-- Fixed time tasks. -->
+      <ul class="fixed-time" contenteditable="false">
+        <li ng-class="task.finished && 'finished'" ng-repeat="task in tasks.fixedTime" toggle-editable>
+          <span class="content">
+            <label>
+              <input type="checkbox" ng-model="task.finished" />
+              <span class="editable">
+                <strong>{{task.time}}</strong>
+                <span ng-bind-html="task.title"></span>
+              </span>
+            </label>
+          </span>
+
+          <span class="menu">
+            [ <a href="#" class="make-editable" click="makeContentEditable()">Edit</a> |
+            <a href="#" class="add-new-task" click="addNewTask()">Add task</a> ]
+          </span>
+        </li>
       </ul>
+
 
       <!-- Important tasks. HAS to be finished. -->
       <ul class="important-tasks">
-        <li contenteditable><input type="checkbox" /> 1</li>
-        <li contenteditable><input type="checkbox" /> 2</li>
-        <li contenteditable><input type="checkbox" /> 3</li>
+        <li ng-class="task.finished && 'finished'" contenteditable ng-repeat="task in tasks.important">
+          <label>
+            <input type="checkbox" ng-model="task.finished" />
+            <span ng-bind-html="task.title"></span>
+          </label>
+        </li>
       </ul>
 
       <!-- Errands. Not that important. -->
-      <ul class="errands">
-        <li><input type="checkbox" /> Linda: How do we do payments? <em><a href="https://redbooth.com/a#!/projects/917952/tasks/11219039">#11219039</a></em></li>
-        <li><input type="checkbox" /> Go through my notebooks. <em>#done</em></li>
-        <li><input type="checkbox" /> FIO: Call &amp; figure out how can I do it.</li>
-        <li><input type="checkbox" /> Jenelle: Propose something that would work for the client.</li>
-        <li><input type="checkbox" /> Research the transfers. I need the money to my UK bank account.</li>
-        <li><input type="checkbox" /> Gerhard: the advice I promised him.</li>
-        <li><input type="checkbox" /> Go through my notes.</li>
-        <li><input type="checkbox" /> Find out how to get back money from NHS.</li>
-        <li><input type="checkbox" /> Go through my papers (2/2).</li>
-        <li><input type="checkbox" /> Test Redbooth.</li>
-        <li><input type="checkbox" /> Challenge my limiting beliefs &amp; prepare for repatterning.</li>
-        <li><input type="checkbox" /> Leadsorama.</li>
+      <ul class="urgencies" contenteditable>
+        <li ng-class="task.finished && 'finished'" ng-repeat="task in tasks.urgencies">
+          <label>
+            <input type="checkbox" ng-model="task.finished" />
+            <span ng-bind-html="task.title"></span>
+          <label>
+        </li>
       </ul>
 
       <h2>Notes</h2>
@@ -65,71 +82,26 @@
       <div contenteditable>
         I got distracted by an idea and it took me a while to get back on track with the rest of the day.
       </div>
-      <br />
-
-      <button>Punch the clock!</button>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4" ng-controller="HabitsCtrl">
       <h1>Habits</h1>
 
-      <div class="finished">
-        <h3>Trigger: The Alarm Goes Off</h3>
-
-        <li><input type="checkbox" /> Action as soon as the alarm goes off.</li>
-        <li><input type="checkbox" /> First thing in the morning: drink water.</li>
-        <li><input type="checkbox" /> Commit to be happy.</li>
-        <li><input type="checkbox" /> Make an entry to the Five Minute Journal.</li>
-        <li><input type="checkbox" /> Watch one motivational video. Notes.</li>
-        <li><input type="checkbox" /> Implementing my new identity.</li>
-
-        <h3>Trigger: Getting Up From The Bed</h3>
-
-        <li><input type="checkbox" /> Clean teeth.</li>
-        <li><input type="checkbox" /> Do 10 push-ups or pull-ups.</li>
-        <li><input type="checkbox" /> Make a power pose.</li>
+      <div class="habit-group" ng-class="groupFinished() && 'finished' || groupActive() && 'active'" ng-repeat="group in groups">
+        <h3>{{group.title}}</h3>
+        <ul>
+          <li ng-class="habit.finished && 'finished'" ng-repeat="habit in group.habits">
+            <label>
+              <input type="checkbox" ng-model="habit.finished" /> {{habit.title}}<span ng-show="habit.link"> [<a ng-href="{{habit.link}}">link</a>]</span>.
+            </label>
+          </li>
+        </ul>
       </div>
-
-      <!-- Bring those to focus based on time of the day. -->
-      <div class="active">
-        <h3>Trigger: Sitting Down To My Desk</h3>
-
-        <li><input type="checkbox" /> Go through 3 Evernote notes.</li>
-        <li><input type="checkbox" /> Write a blog post (or a part of it, if it’s too long).</li>
-        <li><input type="checkbox" /> Do the most important task before 12.</li>
-      </div>
-
-      <h3>Trigger: Lunch</h3>
-
-      <li><input type="checkbox" /> Take a nap or listen to one Headspace episode.</li>
-
-      <h3>Trigger: I Finished Work For The Day</h3>
-
-      <li><input type="checkbox" /> Close all tabs in Chrome.</li>
-
-      <h3>Trigger: Dinner</h3>
-
-      <li><input type="checkbox" /> Merge current tasks to the task log.</li>
-      <li><input type="checkbox" /> Reflection</li>
-      <li><input type="checkbox" /> Prepare tasks for tomorrow.</li>
-
-      <h3>Trigger: Going To Bed</h3>
-
-      <li><input type="checkbox" /> iPhone to offline.</li>
-      <li><input type="checkbox" /> Read a book.</li>
-      <li><input type="checkbox" /> Implementing my new identity.</li>
-      <li><input type="checkbox" /> Give my mind a task to work on.</li>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3" ng-controller="TomorrowCtrl">
       <h1>Tomorrow</h1>
-      <ul contenteditable>
-        <li>...</li>
-      </ul>
-
-      <ul contenteditable>
-        <li>...</li>
-      </ul>
+      <p contenteditable><em>Tasks? Appointments? Ideas?</em><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></p>
     </div>
   </body>
 </html>

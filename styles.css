@@ -1,9 +1,10 @@
-li { list-style: none; }
+ul { list-style: none; padding-left: 0; }
+label { font-weight: normal; }
 
 /* Tasks */
 .fixed-time { background-color: #FFCCCC; }
 .important-tasks { background-color: #FFE0C2; }
-.errands { background-color: #B2FFB2; }
+.urgencies { background-color: #B2FFB2; }
 
 /* Habits */
 .active { background-color: #FFCCCC; }

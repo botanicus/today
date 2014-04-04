@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <!-- <base href="/"> -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Today</title>
+
+    <!-- Angular.js -->
+    <script src="vendor/angular.js"></script>
+    <script src="vendor/angular-route.js"></script>
+    <script src="vendor/angular-resource.js"></script>
+
+    <!-- Bootstrap -->
+    <!-- http://getbootstrap.com/getting-started/ -->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap-theme.css">
+
+    <!-- Bootstrap components rewritten in Angular.js -->
+    <!-- http://angular-ui.github.io/bootstrap -->
+    <script src="vendor/ui-bootstrap-tpls.js"></script>
+
+    <!-- The app -->
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body>
+    <div class="col-md-5">
+      <h1>Today</h1>
+      <ul class="fixed-time" contenteditable>
+        <li><strong>5 PM</strong> Test Skype call. <em>#online</em></li>
+      </ul>
+
+      <!-- Important tasks. HAS to be finished. -->
+      <ul class="important-tasks">
+        <li contenteditable><input type="checkbox" /> 1</li>
+        <li contenteditable><input type="checkbox" /> 2</li>
+        <li contenteditable><input type="checkbox" /> 3</li>
+      </ul>
+
+      <!-- Errands. Not that important. -->
+      <ul class="errands">
+        <li><input type="checkbox" /> Linda: How do we do payments? <em><a href="https://redbooth.com/a#!/projects/917952/tasks/11219039">#11219039</a></em></li>
+        <li><input type="checkbox" /> Go through my notebooks. <em>#done</em></li>
+        <li><input type="checkbox" /> FIO: Call &amp; figure out how can I do it.</li>
+        <li><input type="checkbox" /> Jenelle: Propose something that would work for the client.</li>
+        <li><input type="checkbox" /> Research the transfers. I need the money to my UK bank account.</li>
+        <li><input type="checkbox" /> Gerhard: the advice I promised him.</li>
+        <li><input type="checkbox" /> Go through my notes.</li>
+        <li><input type="checkbox" /> Find out how to get back money from NHS.</li>
+        <li><input type="checkbox" /> Go through my papers (2/2).</li>
+        <li><input type="checkbox" /> Test Redbooth.</li>
+        <li><input type="checkbox" /> Challenge my limiting beliefs &amp; prepare for repatterning.</li>
+        <li><input type="checkbox" /> Leadsorama.</li>
+      </ul>
+
+      <h2>Notes</h2>
+      <p>
+        <em>Any reflections? Ideas about tomorrow?</em>
+      </p>
+
+      <div contenteditable>
+        I got distracted by an idea and it took me a while to get back on track with the rest of the day.
+      </div>
+      <br />
+
+      <button>Punch the clock!</button>
+    </div>
+
+    <div class="col-md-4">
+      <h1>Habits</h1>
+
+      <div class="finished">
+        <h3>Trigger: The Alarm Goes Off</h3>
+
+        <li><input type="checkbox" /> Action as soon as the alarm goes off.</li>
+        <li><input type="checkbox" /> First thing in the morning: drink water.</li>
+        <li><input type="checkbox" /> Commit to be happy.</li>
+        <li><input type="checkbox" /> Make an entry to the Five Minute Journal.</li>
+        <li><input type="checkbox" /> Watch one motivational video. Notes.</li>
+        <li><input type="checkbox" /> Implementing my new identity.</li>
+
+        <h3>Trigger: Getting Up From The Bed</h3>
+
+        <li><input type="checkbox" /> Clean teeth.</li>
+        <li><input type="checkbox" /> Do 10 push-ups or pull-ups.</li>
+        <li><input type="checkbox" /> Make a power pose.</li>
+      </div>
+
+      <!-- Bring those to focus based on time of the day. -->
+      <div class="active">
+        <h3>Trigger: Sitting Down To My Desk</h3>
+
+        <li><input type="checkbox" /> Go through 3 Evernote notes.</li>
+        <li><input type="checkbox" /> Write a blog post (or a part of it, if it’s too long).</li>
+        <li><input type="checkbox" /> Do the most important task before 12.</li>
+      </div>
+
+      <h3>Trigger: Lunch</h3>
+
+      <li><input type="checkbox" /> Take a nap or listen to one Headspace episode.</li>
+
+      <h3>Trigger: I Finished Work For The Day</h3>
+
+      <li><input type="checkbox" /> Close all tabs in Chrome.</li>
+
+      <h3>Trigger: Dinner</h3>
+
+      <li><input type="checkbox" /> Merge current tasks to the task log.</li>
+      <li><input type="checkbox" /> Reflection</li>
+      <li><input type="checkbox" /> Prepare tasks for tomorrow.</li>
+
+      <h3>Trigger: Going To Bed</h3>
+
+      <li><input type="checkbox" /> iPhone to offline.</li>
+      <li><input type="checkbox" /> Read a book.</li>
+      <li><input type="checkbox" /> Implementing my new identity.</li>
+      <li><input type="checkbox" /> Give my mind a task to work on.</li>
+    </div>
+
+    <div class="col-md-3">
+      <h1>Tomorrow</h1>
+      <ul contenteditable>
+        <li>...</li>
+      </ul>
+
+      <ul contenteditable>
+        <li>...</li>
+      </ul>
+    </div>
+  </body>
+</html>
