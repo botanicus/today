@@ -9,3 +9,7 @@ label { font-weight: normal; }
 /* Habits */
 .active { background-color: #FFCCCC; }
 .finished { color: lightgray; }
+
+/* Editing */
+.editable-area { border: solid 5px #D31444; }
+.editable { width: 700;} /* TODO: This doesn't work. */

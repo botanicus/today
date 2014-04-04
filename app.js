@@ -107,34 +107,30 @@ app.directive('toggleEditable', function ($document) {
     var menu = element.getElementsByClassName('menu')[0];
     var editLink = element.getElementsByClassName('make-editable')[0];
     var addNewLink = element.getElementsByClassName('add-new-task')[0];
-    var editableArea = element.getElementsByClassName('editable')[0];
-    var contentArea = element.getElementsByClassName('content')[0];
+    var editableArea = element.getElementsByClassName('editable-area')[0];
+    var displayArea  = element.getElementsByClassName('display-area')[0];
+    var editable = element.getElementsByClassName('editable')[0];
 
     // Defaults.
     menu.style.display = 'none';
+    editableArea.style.display = 'none';
 
     // Make it editable.
     angular.element(editLink).on('click', function (event) {
-      // Don't run twice.
-      if (editableArea.contentEditable === 'true') return
+      displayArea.style.display = 'none';
+      editableArea.style.display = 'inline'
 
-      menu.style.display = 'none'; // This is not enough since we have the other events showing it up.
-
-      editableArea.contentEditable = true;
-      contentArea.innerHTML = contentArea.getElementsByTagName('label')[0].innerHTML;
-
-      // The var is initialised, this is not going to be bind to window.
-      editableArea = element.getElementsByClassName('editable')[0];
-
-      editableArea.focus();
-
-      // Finish editing.
-      angular.element(editableArea).on('focusout', function (event) {
-        editableArea.contentEditable = false;
-
-        contentArea.innerHTML = '<label>' + contentArea.innerHTML + '</label>'
-      });
+      editable.focus();
+      document.execCommand('selectAll', false, null);
     });
+
+    // Finish editing.
+    var finishEditing = function () {
+      editableArea.style.display = 'none';
+      displayArea.style.display = 'inline';
+    };
+
+    angular.element(editableArea).on('focusout', finishEditing);
 
     // Show the edit editLink.
     $element.on('mouseenter', function (event) {
@@ -144,6 +140,14 @@ app.directive('toggleEditable', function ($document) {
     // Hide the edit editLink.
     $element.on('mouseleave', function (event) {
       menu.style.display = 'none';
+    });
+
+    // Ignore Enter key.
+    $element.on('keydown', function (event) {
+      if (event.keyCode == 13) {
+        finishEditing();
+        event.preventDefault();
+      };
     });
   };
 });
