@@ -43,7 +43,7 @@
               <input type="checkbox" ng-model="task.finished" />
               <strong>{{task.time}}</strong>
               <!-- TODO: bind as a model as it updates -->
-              <span ng-bind-html="task.title"></span>
+              <span ng-model="task.title" xxx></span>
             </label>
 
             <span class="menu">
@@ -57,7 +57,7 @@
             <input type="checkbox" ng-model="task.finished" />
             <span class="editable" contenteditable>
               <strong>{{task.time}}</strong>
-              <span ng-bind-html="task.title"></span>
+              <span ng-model="task.title" xxx></span>
             </span>
           </span>
         </li>
@@ -69,7 +69,7 @@
         <li ng-class="task.finished && 'finished'" contenteditable ng-repeat="task in tasks.important">
           <label>
             <input type="checkbox" ng-model="task.finished" />
-            <span ng-bind-html="task.title"></span>
+            <span ng-model="task.title"></span>
           </label>
         </li>
       </ul>
@@ -79,7 +79,7 @@
         <li ng-class="task.finished && 'finished'" ng-repeat="task in tasks.urgencies">
           <label>
             <input type="checkbox" ng-model="task.finished" />
-            <span ng-bind-html="task.title"></span>
+            <span ng-model="task.title"></span>
           <label>
         </li>
       </ul>
