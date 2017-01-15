@@ -23,6 +23,11 @@
     <!-- http://angular-ui.github.io/bootstrap -->
     <script src="vendor/ui-bootstrap-tpls.js"></script>
 
+    <!-- Directives -->
+    <script src="directives/directives.js"></script>
+    <script src="directives/menu.js"></script>
+    <script src="directives/menu.html" id="directives/menu.html" type="text/ng-template"></script>
+
     <!-- The app -->
     <script src="app.js"></script>
     <script src="data.js"></script>
@@ -35,21 +40,19 @@
 
       <!-- Fixed time tasks. -->
       <ul class="fixed-time">
-        <li ng-class="task.finished && 'finished'" ng-repeat="task in tasks.fixedTime" toggle-editable>
+        <li toggle-finished-class ng-repeat="task in tasks.fixedTime" menu max-items="10">
+        <!-- ng-class="task.finished && 'finished'" -->
 
           <!-- Display. -->
           <span class="display-area">
             <label>
               <input type="checkbox" ng-model="task.finished" />
               <strong>{{task.time}}</strong>
-              <!-- TODO: bind as a model as it updates -->
-              <span ng-model="task.title" xxx></span>
+              <span ng-model="task.title" xxx data-inspect="display"></span>
             </label>
 
-            <span class="menu">
-              [ <a href="#" class="make-editable" click="makeContentEditable()">Edit</a> |
-              <a href="#" class="add-new-task" click="addNewTask()">Add task</a> ]
-            </span>
+            <!-- This will get populated by the menu directive. -->
+            <span class="menu"></span>
           </span>
 
           <!-- Edit. -->
@@ -57,7 +60,7 @@
             <input type="checkbox" ng-model="task.finished" />
             <span class="editable" contenteditable>
               <strong>{{task.time}}</strong>
-              <span ng-model="task.title" xxx></span>
+              <span ng-model="task.title" xxx data-inspect="editable"></span>
             </span>
           </span>
         </li>
